@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using System.Text;
+
 
 namespace TechJobsConsole
 {
@@ -28,15 +28,43 @@ namespace TechJobsConsole
 
             foreach (Dictionary<string, string> job in AllJobs)
             {
-                string aValue = job[column];
+                string aValue = job[column].ToLower();
 
-                if (!values.Contains(aValue))
+                if (!values.Contains(aValue.ToLower()))
                 {
                     values.Add(aValue);
                 }
             }
+            values.Sort(); //bonus
             return values;
         }
+
+        
+        public static List<Dictionary<string,string>> FindByValue(string value)
+        {
+           // load data, if not already loaded
+            LoadData();
+
+            List<Dictionary<string, string>> jobs = new List<Dictionary<string, string>>();
+
+            foreach (Dictionary<string, string> row in AllJobs)
+            {
+                foreach (KeyValuePair<string, string> searchValue in row)
+                {
+                    if (!jobs.Contains(row))
+                    {
+                        if (searchValue.Value.ToLower().Contains(value.ToLower()))
+                        {
+                            jobs.Add(row);
+                        }
+                    }
+                }
+            }
+            jobs.Sort(); //bonus
+            return jobs;
+        }
+        
+
 
         public static List<Dictionary<string, string>> FindByColumnAndValue(string column, string value)
         {
@@ -49,7 +77,7 @@ namespace TechJobsConsole
             {
                 string aValue = row[column];
 
-                if (aValue.Contains(value))
+                if (aValue.ToLower().Contains(value.ToLower()))
                 {
                     jobs.Add(row);
                 }
