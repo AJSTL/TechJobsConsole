@@ -35,7 +35,7 @@ namespace TechJobsConsole
                     values.Add(aValue);
                 }
             }
-            values.Sort(); //bonus
+   
             return values;
         }
 
@@ -60,7 +60,7 @@ namespace TechJobsConsole
                     }
                 }
             }
-            jobs.Sort(); //bonus
+            
             return jobs;
         }
         
